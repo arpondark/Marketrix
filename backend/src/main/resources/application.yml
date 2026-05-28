@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: marketrix
+
+  profiles:
+    active: dev
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+server:
+  port: 8080
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:default-dev-secret-change-in-production-must-be-at-least-256-bits-long}
+  access-token-expiration: 900000    # 15 minutes
+  refresh-token-expiration: 604800000 # 7 days
+
+# AI Configuration
+ai:
+  anthropic:
+    api-key: ${ANTHROPIC_API_KEY:}
+    model: claude-sonnet-4-20250514
+    base-url: https://api.anthropic.com/v1
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    embedding-model: text-embedding-3-small
+    base-url: https://api.openai.com/v1
+
+# Stripe
+stripe:
+  secret-key: ${STRIPE_SECRET_KEY:}
+  webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
+
+# S3 / File Storage
+storage:
+  s3:
+    bucket: ${S3_BUCKET:marketrix-reports}
+    region: ${S3_REGION:us-east-1}
+    access-key: ${S3_ACCESS_KEY:}
+    secret-key: ${S3_SECRET_KEY:}

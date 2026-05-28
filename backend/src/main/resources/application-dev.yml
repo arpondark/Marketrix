@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/marketrix
+    username: postgres
+    password: postgres
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    clean-disabled: false
+
+logging:
+  level:
+    com.example.marketrix: DEBUG
+    org.springframework.security: DEBUG
+
+cors:
+  allowed-origins: http://localhost:3000
