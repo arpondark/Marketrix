@@ -9,6 +9,8 @@ const testimonials = [
     author: "Sarah Chen",
     role: "Founder, TechFlow",
     metric: "42 days saved",
+    metricColor: "var(--emerald)",
+    initials: "SC",
   },
   {
     quote:
@@ -16,6 +18,8 @@ const testimonials = [
     author: "James Rodriguez",
     role: "Independent researcher",
     metric: "$40K annualized",
+    metricColor: "var(--gold)",
+    initials: "JR",
   },
   {
     quote:
@@ -23,39 +27,95 @@ const testimonials = [
     author: "Emily Watson",
     role: "CEO, GrowthCo",
     metric: "3 markets ranked",
+    metricColor: "var(--coral)",
+    initials: "EW",
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="section-pad">
-      <div className="container">
-        <div className="mb-12 max-w-2xl">
-          <span className="eyebrow">Proof points</span>
-          <h2 className="mt-4 text-5xl md:text-6xl">A sharper way to buy market clarity.</h2>
+    <section className="section-pad relative overflow-hidden" style={{ background: "var(--bg-base)" }}>
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute left-1/2 top-0 h-[300px] w-[600px] -translate-x-1/2 rounded-full blur-3xl opacity-[0.05]"
+          style={{ background: "var(--emerald)" }} />
+      </div>
+
+      <div className="container relative z-10">
+        {/* Header */}
+        <div className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="eyebrow">Proof points</span>
+            <h2 className="mt-5 max-w-xl text-[2.5rem] leading-[1.05] md:text-[3.4rem]">
+              A sharper way to buy<br />
+              <span className="gradient-text">market clarity.</span>
+            </h2>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="flex">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={16} fill="var(--gold)" className="text-[var(--gold)]" />
+              ))}
+            </div>
+            <span className="text-sm text-[var(--ink-muted)]">4.9 / 5 from 340 reviews</span>
+          </div>
         </div>
 
+        {/* Cards */}
         <div className="grid gap-5 lg:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <article key={testimonial.author} className="quiet-surface p-7">
-              <div className="mb-8 flex items-center justify-between">
-                <Quote className="text-[var(--teal)]" size={24} />
-                <div className="flex gap-1 text-[var(--gold)]">
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <Star key={index} size={16} fill="currentColor" />
+          {testimonials.map((t) => (
+            <article
+              key={t.author}
+              className="glow-card quiet-surface flex flex-col p-7"
+            >
+              {/* Top: quote icon + stars */}
+              <div className="mb-6 flex items-center justify-between">
+                <div
+                  className="flex h-9 w-9 items-center justify-center rounded-lg"
+                  style={{ background: "var(--emerald-surface)", color: "var(--emerald)" }}
+                >
+                  <Quote size={16} />
+                </div>
+                <div className="flex gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} size={13} fill="var(--gold)" className="text-[var(--gold)]" />
                   ))}
                 </div>
               </div>
-              <p className="min-h-[140px] text-base leading-8 text-[var(--ink-soft)]">
-                &ldquo;{testimonial.quote}&rdquo;
-              </p>
-              <div className="mt-8 border-t border-[var(--line)] pt-5">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <h3 className="font-sans text-base font-extrabold">{testimonial.author}</h3>
-                    <p className="mt-1 text-sm">{testimonial.role}</p>
+
+              {/* Quote */}
+              <blockquote className="flex-1 text-[0.95rem] leading-[1.8] text-[var(--ink-soft)]">
+                &ldquo;{t.quote}&rdquo;
+              </blockquote>
+
+              {/* Footer */}
+              <div className="mt-7 flex items-center justify-between gap-4 border-t border-[var(--line)] pt-5">
+                <div className="flex items-center gap-3">
+                  {/* Avatar */}
+                  <div
+                    className="mono flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[0.68rem] font-bold"
+                    style={{
+                      background: `${t.metricColor}18`,
+                      color: t.metricColor,
+                      border: `1px solid ${t.metricColor}30`,
+                    }}
+                  >
+                    {t.initials}
                   </div>
-                  <span className="tag tag-gold">{testimonial.metric}</span>
+                  <div>
+                    <div className="text-sm font-semibold text-[var(--ink)]">{t.author}</div>
+                    <div className="text-xs text-[var(--ink-muted)]">{t.role}</div>
+                  </div>
+                </div>
+                <div
+                  className="mono rounded-full border px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-wider shrink-0"
+                  style={{
+                    background: `${t.metricColor}10`,
+                    borderColor: `${t.metricColor}25`,
+                    color: t.metricColor,
+                  }}
+                >
+                  {t.metric}
                 </div>
               </div>
             </article>
