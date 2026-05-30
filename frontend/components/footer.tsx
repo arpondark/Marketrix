@@ -33,6 +33,7 @@ const sections = [
     title: "Company",
     links: [
       { label: "About", href: "/about" },
+      { label: "Documentation", href: "/docs" },
       { label: "Analyst network", href: "/marketplace" },
       { label: "Research desk", href: "/dashboard" },
     ],

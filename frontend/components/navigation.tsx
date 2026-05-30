@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, Menu, X, Zap } from "lucide-react";
+import { ArrowRight, Menu, X, Zap, FileText } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const navLinks = [
@@ -12,6 +12,8 @@ const navLinks = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/about", label: "About" },
 ];
+
+const docsLink = { href: "/docs", label: "Docs" };
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -66,6 +68,16 @@ export default function Navigation() {
               {link.label}
             </Link>
           ))}
+          {/* Docs — special treatment */}
+          <Link
+            href={docsLink.href}
+            className={`nav-pill flex items-center gap-1.5 ${
+              isActive(docsLink.href) ? "nav-pill-active" : ""
+            }`}
+          >
+            <FileText size={12} />
+            {docsLink.label}
+          </Link>
         </div>
 
         {/* Desktop CTA buttons */}
